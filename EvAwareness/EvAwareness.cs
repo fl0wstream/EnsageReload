@@ -17,8 +17,11 @@
 namespace EvAwareness
 {
     using System;
+    using System.Linq;
 
     using Ensage;
+
+    using Utility;
 
     internal class EvAwareness
     {
@@ -29,7 +32,10 @@ namespace EvAwareness
 
         private static void OnUpdate(EventArgs args)
         {
-            // OnTick()
+            foreach (var module in Variables.ModulesList.Where(moduleHandler => moduleHandler.ShouldRun() && moduleHandler.GetModuleType() == ModuleType.OnUpdate))
+            {
+                module.OnTick();
+            }
         }
     }
 }

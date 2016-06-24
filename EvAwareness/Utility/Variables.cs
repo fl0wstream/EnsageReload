@@ -20,13 +20,20 @@
 
 namespace EvAwareness.Utility
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
 
     using Ensage;
     using Ensage.Common.Menu;
 
+    using Modules;
+    using Modules.MissTracker;
+
     class Variables
     {
+        public static List<ModuleHandler> ModulesList = new List<ModuleHandler>() { new MissTrackerHandler() };
+
         public static Menu Menu { get; set; }
 
         public static Hero Player => ObjectManager.LocalHero;
@@ -36,5 +43,13 @@ namespace EvAwareness.Utility
         public static string Version
             => Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(".0".ToCharArray());
 
+        public class Heroes
+        {
+            public static List<Hero> Enemies
+                => ObjectManager.GetEntities<Hero>().Where(x => x.IsValid && x.Team != Player.Team).ToList();
+
+            public static List<Hero> Allies
+                => ObjectManager.GetEntities<Hero>().Where(x => x.IsValid && x.Team == Player.Team).ToList();
+        }
     }
 }

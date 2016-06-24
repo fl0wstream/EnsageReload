@@ -20,6 +20,8 @@
 
 namespace EvAwareness
 {
+    using System;
+
     using Ensage;
     using Ensage.Common.Menu;
 
@@ -37,6 +39,23 @@ namespace EvAwareness
             Variables.Menu = new Menu("EvAwareness#", "evervolv.aware", true);
 
             ConsoleHelper.OnLoad();
+
+            foreach (var module in Variables.ModulesList)
+            {
+                try
+                {
+                    module.OnLoad();
+                }
+                catch (Exception e)
+                {
+                    ConsoleHelper.Print(new ConsoleItem("Bootstrap::OnModuleLoad", e, MessageClass.Error));
+                }
+
+                ConsoleHelper.Print(
+                    new ConsoleItem("Bootstrap::OnModuleLoad", "Module " 
+                    + module.ToString().Replace("EvAwareness.Modules.", String.Empty).Split(".".ToCharArray())[0] + 
+                    " loaded."));
+            }
 
             if (Variables.IsDevelopment)
                 Variables.Menu.AddItem(

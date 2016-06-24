@@ -3,7 +3,7 @@
     using System.ComponentModel;
 
     [DefaultValue(Medium)]
-    public enum MessageType
+    public enum MessageClass
     {
         Warning, Error, Low, Medium, Severe
     }

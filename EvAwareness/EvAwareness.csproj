@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="EvAwareness.cs" />
+    <Compile Include="Modules\MissTracker\MissTrackerModule.cs" />
     <Compile Include="Modules\MissTracker\MissTrackerHandler.cs" />
     <Compile Include="Modules\ModuleHandler.cs" />
     <Compile Include="Program.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="Utility\Console\ConsoleEnum.cs" />
     <Compile Include="Utility\Console\ConsoleHelper.cs" />
     <Compile Include="Utility\Console\ConsoleItem.cs" />
+    <Compile Include="Utility\MenuExtensions.cs" />
     <Compile Include="Utility\ModuleType.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
