@@ -23,6 +23,8 @@ namespace EvAwareness
     using Ensage;
     using Ensage.Common.Menu;
 
+    using SharpDX;
+
     using Utility;
 
     public class AwBootstrap
@@ -31,9 +33,15 @@ namespace EvAwareness
         {
             Variables.Menu = new Menu("EvAwareness#", "evervolv.aware", true);
 
+            if (Variables.IsDevelopment)
+                Variables.Menu.AddItem(
+                    new MenuItem("devalert", Variables.Version + " dev").SetFontColor(Color.GreenYellow));
             Variables.Menu.AddToMainMenu();
             
-            Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded", MessageType.LogMessage);
+            if (Variables.IsDevelopment)
+                Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded <font color='#adff2f'>[DEV " + Variables.Version + "]</font>", MessageType.LogMessage);
+            else
+                Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded", MessageType.LogMessage);
         }
     }
 }

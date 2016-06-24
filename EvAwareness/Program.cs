@@ -12,6 +12,7 @@
 //   You should have received a copy of the GNU General Public License
 //   along with this program.  If not, see http://www.gnu.org/licenses
 // </copyright>
+// 
 // --------------------------------------------------------------------------------------------------------------------
 namespace EvAwareness
 {
@@ -20,10 +21,19 @@ namespace EvAwareness
     using Ensage.Common;
 
     /// <summary>
-    /// The program.
+    ///     The program.
     /// </summary>
     internal class Program
     {
+        #region Static Fields
+
+        /// <summary>
+        /// Tells is dev version running (for debug)
+        /// </summary>
+        public static bool IsDevelopment = true;
+
+        #endregion
+
         #region Methods
 
         /// <summary>

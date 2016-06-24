@@ -20,6 +20,8 @@
 
 namespace EvAwareness.Utility
 {
+    using System.Reflection;
+
     using Ensage;
     using Ensage.Common.Menu;
 
@@ -28,5 +30,9 @@ namespace EvAwareness.Utility
         public static Menu Menu { get; set; }
 
         public static Hero Player => ObjectManager.LocalHero;
+
+        public static bool IsDevelopment => Program.IsDevelopment;
+
+        public static string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
     }
 }
