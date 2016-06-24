@@ -18,23 +18,37 @@
 // 
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace EvAwareness.Utility
+namespace EvAwareness
 {
-    using System.Reflection;
-
     using Ensage;
     using Ensage.Common.Menu;
 
-    class Variables
+    using Utility;
+    using Utility.Console;
+
+    using SharpDX;
+
+    using MessageType = Ensage.MessageType;
+
+    public class Bootstrap
     {
-        public static Menu Menu { get; set; }
+        public static void OnLoad()
+        {
+            Variables.Menu = new Menu("EvAwareness#", "evervolv.aware", true);
 
-        public static Hero Player => ObjectManager.LocalHero;
+            ConsoleHelper.OnLoad();
 
-        public static bool IsDevelopment => Program.IsDevelopment;
+            if (Variables.IsDevelopment)
+                Variables.Menu.AddItem(
+                    new MenuItem("evervolv.aware.devalert", Variables.Version + " dev").SetFontColor(new Color(153, 153, 255)));
+            Variables.Menu.AddToMainMenu();
+            
+            if (Variables.IsDevelopment)
+                Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded <font color='#9999ff'>[dev " + Variables.Version + "]</font>", MessageType.LogMessage);
+            else
+                Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded", MessageType.LogMessage);
 
-        public static string Version
-            => Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(".0".ToCharArray());
-
+            ConsoleHelper.Print(new ConsoleItem("Bootstrap", "Completed!"));
+        }
     }
 }
