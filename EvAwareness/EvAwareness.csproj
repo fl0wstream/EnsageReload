@@ -70,10 +70,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AwBootstrap.cs" />
+    <Compile Include="Bootstrap.cs" />
     <Compile Include="EvAwareness.cs" />
+    <Compile Include="Modules\MissTracker\MissTrackerHandler.cs" />
+    <Compile Include="Modules\ModuleHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\Console\ConsoleEnum.cs" />
+    <Compile Include="Utility\Console\ConsoleHelper.cs" />
+    <Compile Include="Utility\Console\ConsoleItem.cs" />
+    <Compile Include="Utility\ModuleType.cs" />
     <Compile Include="Utility\Variables.cs" />
   </ItemGroup>
   <ItemGroup>

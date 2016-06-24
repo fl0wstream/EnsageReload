@@ -58,7 +58,7 @@ namespace EvAwareness
         /// </param>
         private static void OnLoad(object sender, EventArgs e)
         {
-            AwBootstrap.OnLoad();
+            Bootstrap.OnLoad();
         }
 
         #endregion

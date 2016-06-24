@@ -20,6 +20,7 @@
 
 namespace EvAwareness.Utility
 {
+    using System;
     using System.Reflection;
 
     using Ensage;
@@ -33,6 +34,8 @@ namespace EvAwareness.Utility
 
         public static bool IsDevelopment => Program.IsDevelopment;
 
-        public static string Version => Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public static string Version
+            => Assembly.GetExecutingAssembly().GetName().Version.ToString().TrimEnd(".0".ToCharArray());
+
     }
 }
