@@ -1,6 +1,8 @@
 ﻿namespace EvAwareness.UI.Elements
 {
     using System;
+    using System.Linq;
+    using System.Runtime.Remoting.Messaging;
 
     using Ensage;
     using Ensage.Common;
@@ -47,7 +49,7 @@
                 {
                     i++;
                     Drawing.DrawText(
-                        tracker.Hero.Name + " | " + tracker.SSTime,
+                        tracker.Hero.Name + " | " + tracker.SSTime + " | " + tracker.LastPosition,
                         new Vector2(100, 100 + 18 * i),
                         Color.Black,
                         FontFlags.Outline);
@@ -56,23 +58,51 @@
                 i = 0;
             }
 
-            foreach (var tracker in MissTrackerModule.Trackers.Values)
+            if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.hud"))
             {
-                var hudInfo = HudHelper.GetTopPanelPosition(tracker.Hero);
-                var hudInfoSize = HudHelper.GetTopPanelSize(tracker.Hero);
+                foreach (var tracker in MissTrackerModule.Trackers.Values)
+                {
+                    var hudInfo = HudHelper.GetTopPanelPosition(tracker.Hero);
+                    var hudInfoSize = HudHelper.GetTopPanelSize(tracker.Hero);
 
-                var drawColor = tracker.GetColor();
-                drawColor.A = 200;
+                    var drawColor = tracker.GetColor();
+                    drawColor.A = 200;
 
-                Drawing.DrawRect(hudInfo, hudInfoSize, drawColor);
-                Drawing.DrawRect(hudInfo, hudInfoSize, Color.Black, true);
-                var timePosition = new Vector2(hudInfo.X + 5, hudInfo.Y + 10);
+                    Drawing.DrawRect(hudInfo, hudInfoSize, drawColor);
+                    Drawing.DrawRect(hudInfo, hudInfoSize, Color.Black, true);
+                    var timePosition = new Vector2(hudInfo.X + 5, hudInfo.Y + 10);
 
-                Drawing.DrawText(tracker.SSTime, timePosition, new Vector2(14),  Color.Black, FontFlags.AntiAlias);
+                    Drawing.DrawText(tracker.SSTime, timePosition, new Vector2(14), Color.Black, FontFlags.AntiAlias);
 
-                var statusPosition = new Vector2(hudInfo.X + 5, hudInfo.Y + 20);
+                    var statusPosition = new Vector2(hudInfo.X + 5, hudInfo.Y + 20);
 
-                Drawing.DrawText(tracker.Status.ToString(), statusPosition, new Vector2(14), Color.Black, FontFlags.AntiAlias);
+                    Drawing.DrawText(
+                        tracker.Status.ToString(),
+                        statusPosition,
+                        new Vector2(14),
+                        Color.Black,
+                        FontFlags.AntiAlias);
+                }
+            }
+
+            if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.minimap"))
+            {
+                foreach (var tracker in MissTrackerModule.Trackers.Values.Where(x =>
+                    x.SSTimeInt >= MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.mintime").Value && 
+                    x.Hero.IsAlive && 
+                    x.Status != TrackStatus.Visible))
+                {
+                    var drawPosition = CommonHelper.WorldToMinimap(tracker.LastPosition);
+                    var size = new Vector2(MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.minimap.size").Value);
+                    Drawing.DrawRect(drawPosition + new Vector2(-size.X / 2, -size.Y / 2), size, HudHelper.GetHeroTextureMinimap(tracker.Hero.Name));
+
+                    /**if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.minimap.sstime"))
+                    {
+                        var textSize = new Vector2(MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.minimap.size").Value - 2);
+                        var textColor = Color.White; textColor.A = 100;
+                        Drawing.DrawText(tracker.SSTimeInt.ToString(), drawPosition + new Vector2(-textSize.X / 2, -textSize.Y / 2), textSize, textColor, FontFlags.AntiAlias);
+                    }*/
+                }
             }
         }
     }

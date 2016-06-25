@@ -58,6 +58,7 @@
                 if (hero.Status != hero.GetStatus())
                 {
                     hero.LastSeen = Game.GameTime;
+                    if (hero.Hero != null) hero.LastPosition = hero.Hero.NetworkPosition;
                     hero.Status = curStat;
                 }
             }

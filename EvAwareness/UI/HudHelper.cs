@@ -24,5 +24,12 @@
             
             return new Vector2((float)hudInfoSize[0], (float)hudInfoSize[1]);
         }
+
+        public static DotaTexture GetHeroTextureMinimap(string heroName)
+        {
+            var name = "materials/ensage_ui/miniheroes/" + heroName.Substring("npc_dota_hero_".Length) + ".vmat";
+
+            return Drawing.GetTexture(name);
+        }
     }
 }

@@ -18,7 +18,13 @@ namespace EvAwareness.Modules.MissTracker
                 var moduleMenu = new Menu("SS Tracker", "evervolv.aware.misstracker");
                 {
                     moduleMenu.AddBool("evervolv.aware.misstracker.hud", "Track in HUD", true);
+                    moduleMenu.AddBool("evervolv.aware.misstracker.minimap", "Track in Minimap", true);
                     moduleMenu.AddSlider("evervolv.aware.misstracker.mintime", "Minimum SS time", 5, 1, 10);
+                    moduleMenu.AddSlider("evervolv.aware.misstracker.minimap.size", "Minimap icons size", 20, 10, 35);
+                    /**moduleMenu.AddBool(
+                        "evervolv.aware.misstracker.minimap.sstime",
+                        "Draw miss time on minimap icons",
+                        true);*/
                     rootMenu.AddSubMenu(moduleMenu);
                 }
             }
