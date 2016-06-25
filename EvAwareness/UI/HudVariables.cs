@@ -13,7 +13,11 @@
 
     class HudVariables
     {
-        public static List<ElementHandler> ElementsList = new List<ElementHandler> { new StatusPanel() }; 
+        public static List<ElementHandler> ElementsList = new List<ElementHandler>
+                                                              {
+                                                                  new StatusPanel(),
+                                                                  new Minimap()
+                                                              }; 
 
         public static Font HudFont => new Font(Drawing.Direct3DDevice9, new FontDescription {
              FaceName = "Segoe UI",

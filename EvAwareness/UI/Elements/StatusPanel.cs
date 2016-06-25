@@ -39,6 +39,7 @@
 
         public override void OnDraw()
         {
+            // Development hud
             if (Variables.IsDevelopment)
             {
                 Drawing.DrawText("Heroes: ", new Vector2(100, 100), Color.Aqua, FontFlags.Outline);
@@ -58,6 +59,7 @@
                 i = 0;
             }
 
+            // Misstracker top panel hud
             if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.hud"))
             {
                 foreach (var tracker in MissTrackerModule.Trackers.Values)
@@ -82,26 +84,6 @@
                         new Vector2(14),
                         Color.Black,
                         FontFlags.AntiAlias);
-                }
-            }
-
-            if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.minimap"))
-            {
-                foreach (var tracker in MissTrackerModule.Trackers.Values.Where(x =>
-                    x.SSTimeInt >= MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.mintime").Value && 
-                    x.Hero.IsAlive && 
-                    x.Status != TrackStatus.Visible))
-                {
-                    var drawPosition = CommonHelper.WorldToMinimap(tracker.LastPosition);
-                    var size = new Vector2(MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.minimap.size").Value);
-                    Drawing.DrawRect(drawPosition + new Vector2(-size.X / 2, -size.Y / 2), size, HudHelper.GetHeroTextureMinimap(tracker.Hero.Name));
-
-                    /**if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.minimap.sstime"))
-                    {
-                        var textSize = new Vector2(MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.minimap.size").Value - 2);
-                        var textColor = Color.White; textColor.A = 100;
-                        Drawing.DrawText(tracker.SSTimeInt.ToString(), drawPosition + new Vector2(-textSize.X / 2, -textSize.Y / 2), textSize, textColor, FontFlags.AntiAlias);
-                    }*/
                 }
             }
         }

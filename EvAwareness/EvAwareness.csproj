@@ -99,6 +99,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ElementHandler.cs" />
+    <Compile Include="UI\Elements\Minimap.cs" />
     <Compile Include="UI\HudHelper.cs" />
     <Compile Include="UI\HudVariables.cs" />
     <Compile Include="UI\Elements\StatusPanel.cs" />
