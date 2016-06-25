@@ -93,12 +93,16 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="EvAwareness.cs" />
+    <Compile Include="Modules\GankAlert\GankAlertCalculator.cs" />
+    <Compile Include="Modules\GankAlert\GankAlertVariables.cs" />
+    <Compile Include="Modules\GankAlert\GankAlertHandler.cs" />
     <Compile Include="Modules\MissTracker\MissTrackerModule.cs" />
     <Compile Include="Modules\MissTracker\MissTrackerHandler.cs" />
     <Compile Include="Modules\ModuleHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ElementHandler.cs" />
+    <Compile Include="UI\Elements\LocalHero.cs" />
     <Compile Include="UI\Elements\Minimap.cs" />
     <Compile Include="UI\HudHelper.cs" />
     <Compile Include="UI\HudVariables.cs" />

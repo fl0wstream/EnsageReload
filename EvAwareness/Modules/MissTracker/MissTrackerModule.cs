@@ -22,7 +22,7 @@
         {
             try
             {
-                foreach (var enemy in Variables.Heroes.Enemies)
+                foreach (var enemy in Variables.Heroes.Enemies.Where(x => x.IsAlive))
                 {
                     Trackers.Add(enemy.Name, new HeroTracker() { Hero = enemy });
                     ConsoleHelper.Print(new ConsoleItem("MissTrackerModule::OnLoad", "Added " + enemy.Name));
@@ -32,7 +32,7 @@
             }
             catch (Exception e)
             {
-                ConsoleHelper.Print(new ConsoleItem("SSTracker", e, MessageClass.Severe));
+                ConsoleHelper.Print(new ConsoleItem("MissTrackerModule::OnLoad", e, MessageClass.Severe));
             }
         }
 
@@ -41,7 +41,7 @@
             if (!Utils.SleepCheck("aware.heroupdate")) return;
 
             // Adding new heroes
-            foreach (var h in Variables.Heroes.Enemies)
+            foreach (var h in Variables.Heroes.Enemies.Where(x => x.IsAlive))
             {
                 var hero = Trackers.Values.FirstOrDefault(h2 => h2.Hero.Index == h.Index);
                 if (hero == null)

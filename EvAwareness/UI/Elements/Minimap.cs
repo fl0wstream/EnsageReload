@@ -7,7 +7,9 @@ namespace EvAwareness.UI.Elements
     using Ensage;
     using Ensage.Common.Menu;
 
-    using global::EvAwareness.Modules.MissTracker;
+    using global::EvAwareness.Modules.GankAlert;
+
+    using Modules.MissTracker;
 
     using SharpDX;
 
@@ -45,14 +47,16 @@ namespace EvAwareness.UI.Elements
                     var drawPosition = CommonHelper.WorldToMinimap(tracker.LastPosition);
                     var size = new Vector2(MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.minimap.size").Value);
                     Drawing.DrawRect(drawPosition + new Vector2(-size.X / 2, -size.Y / 2), size, HudHelper.GetHeroTextureMinimap(tracker.Hero.Name));
-
-                    /**if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.minimap.sstime"))
-                    {
-                        var textSize = new Vector2(MenuExtensions.GetItemValue<Slider>("evervolv.aware.misstracker.minimap.size").Value - 2);
-                        var textColor = Color.White; textColor.A = 100;
-                        Drawing.DrawText(tracker.SSTimeInt.ToString(), drawPosition + new Vector2(-textSize.X / 2, -textSize.Y / 2), textSize, textColor, FontFlags.AntiAlias);
-                    }*/
                 }
+            }
+
+            if (MenuExtensions.GetItemValue<bool>("evervolv.aware.gank.enable") && 
+                MenuExtensions.GetItemValue<bool>("evervolv.aware.gank.drawline.minimap"))
+            {
+                var localHeroPosition = CommonHelper.WorldToMinimap(Variables.Player.NetworkPosition);
+                var gankingHeroPosition = CommonHelper.WorldToMinimap(GankAlertCalculator.GetGankingHero().NetworkPosition);
+
+                Drawing.DrawLine(localHeroPosition, gankingHeroPosition, Color.LightYellow);
             }
         }
 

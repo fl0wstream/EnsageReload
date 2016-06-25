@@ -29,10 +29,15 @@ namespace EvAwareness.Utility
 
     using Modules;
     using Modules.MissTracker;
+    using Modules.GankAlert;
 
     class Variables
     {
-        public static List<ModuleHandler> ModulesList = new List<ModuleHandler>() { new MissTrackerHandler() };
+        public static List<ModuleHandler> ModulesList = new List<ModuleHandler>()
+                                                            {
+                                                                new MissTrackerHandler(),
+                                                                new GankAlertHandler()
+                                                            };
 
         public static Menu Menu { get; set; }
 

@@ -31,5 +31,16 @@
 
             return Drawing.GetTexture(name);
         }
+
+        public static Vector2 MeasureText(string text, Vector2 size, FontFlags flags)
+        {
+            return Drawing.MeasureText(text, "Arial", new Vector2(size.Y * 2, size.X), flags);
+        }
+
+        public static Vector2 GetTextPosition(Vector2 start, string text, Vector2 size, FontFlags flags)
+        {
+            var textSize = MeasureText(text, size, flags);
+            return start + new Vector2(size.X / 2 - textSize.X / 2, -textSize.Y / 2 + 2);
+        }
     }
 }

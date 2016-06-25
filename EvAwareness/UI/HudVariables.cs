@@ -16,7 +16,8 @@
         public static List<ElementHandler> ElementsList = new List<ElementHandler>
                                                               {
                                                                   new StatusPanel(),
-                                                                  new Minimap()
+                                                                  new Minimap(),
+                                                                  new LocalHero()
                                                               }; 
 
         public static Font HudFont => new Font(Drawing.Direct3DDevice9, new FontDescription {
