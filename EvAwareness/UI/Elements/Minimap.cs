@@ -37,6 +37,7 @@ namespace EvAwareness.UI.Elements
 
         public override void OnDraw()
         {
+            // Last seen position drawing
             if (MenuExtensions.GetItemValue<bool>("evervolv.aware.misstracker.minimap"))
             {
                 foreach (var tracker in MissTrackerModule.Trackers.Values.Where(x =>
@@ -50,8 +51,10 @@ namespace EvAwareness.UI.Elements
                 }
             }
 
+            // GankAlert minimap drawing
             if (MenuExtensions.GetItemValue<bool>("evervolv.aware.gank.enable") && 
-                MenuExtensions.GetItemValue<bool>("evervolv.aware.gank.drawline.minimap"))
+                MenuExtensions.GetItemValue<bool>("evervolv.aware.gank.drawline.minimap") &&
+                GankAlertCalculator.GetGankingHero() != null)
             {
                 var localHeroPosition = CommonHelper.WorldToMinimap(Variables.Player.NetworkPosition);
                 var gankingHeroPosition = CommonHelper.WorldToMinimap(GankAlertCalculator.GetGankingHero().NetworkPosition);
