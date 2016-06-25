@@ -46,10 +46,10 @@ namespace EvAwareness.Utility
         public class Heroes
         {
             public static List<Hero> Enemies
-                => ObjectManager.GetEntities<Hero>().Where(x => x.IsValid && x.Team != Player.Team).ToList();
+                => ObjectManager.GetEntities<Hero>().Where(x => x.Team != Player.Team).ToList();
 
             public static List<Hero> Allies
-                => ObjectManager.GetEntities<Hero>().Where(x => x.IsValid && x.Team == Player.Team).ToList();
+                => ObjectManager.GetEntities<Hero>().Where(x => x.Team == Player.Team).ToList();
         }
     }
 }

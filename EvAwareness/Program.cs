@@ -18,6 +18,7 @@ namespace EvAwareness
 {
     using System;
 
+    using Ensage;
     using Ensage.Common;
 
     /// <summary>

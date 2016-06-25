@@ -3,8 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.AccessControl;
 
     using Ensage;
+    using Ensage.Common;
+    using Ensage.Common.Extensions;
 
     using Utility;
     using Utility.Console;
@@ -19,9 +22,10 @@
         {
             try
             {
-                foreach (var enemy in Variables.Heroes.Enemies.Where(x => x.IsAlive))
+                foreach (var enemy in Variables.Heroes.Enemies)
                 {
-                    Trackers.Add(enemy.Name, new HeroTracker() { Hero = enemy, LastSeen = -1 });
+                    Trackers.Add(enemy.Name, new HeroTracker() { Hero = enemy });
+                    ConsoleHelper.Print(new ConsoleItem("MissTrackerModule::OnLoad", "Added " + enemy.Name));
                 }
 
                 Game.OnUpdate += OnUpdate;
@@ -34,23 +38,31 @@
 
         private static void OnUpdate(EventArgs args)
         {
+            if (!Utils.SleepCheck("aware.heroupdate")) return;
+
+            // Adding new heroes
             foreach (var h in Variables.Heroes.Enemies)
             {
-                var hero = Trackers.Values.FirstOrDefault(h2 => h2.Hero.HeroID == h.HeroID);
-                if (hero != null)
+                var hero = Trackers.Values.FirstOrDefault(h2 => h2.Hero.Index == h.Index);
+                if (hero == null)
                 {
-                    if (hero.LastSeen < 0 && !h.IsVisible)
-                    {
-                        hero.LastSeen = Environment.TickCount;
-                        hero.LastPosition = hero.Hero.NetworkPosition;
-                    }
-                    if (hero.SSTimeFloat > 1 && (h.IsVisible))
-                    {
-                        hero.LastPosition = Vector3.Zero;
-                        hero.LastSeen = -1;
-                    }
+                    Trackers.Add(h.Name, new HeroTracker() { Hero = h });
+                    ConsoleHelper.Print(new ConsoleItem("MissTrackerModule::OnUpdate", "Added " + h.Name));
                 }
             }
+
+            // Updating heroes
+            foreach (var hero in Trackers.Values)
+            {
+                var curStat = hero.GetStatus();
+                if (hero.Status != hero.GetStatus())
+                {
+                    hero.LastSeen = Game.GameTime;
+                    hero.Status = curStat;
+                }
+            }
+
+            Utils.Sleep(200, "aware.heroupdate");
         }
     }
 
@@ -60,10 +72,45 @@
 
         public float LastSeen { get; set; }
 
-        public float SSTimeFloat => LastSeen > -1 ? (float)Math.Ceiling((Environment.TickCount - LastSeen) / 1000 + 0.5) : 0;
+        public string SSTime => Status != TrackStatus.Visible ? ((int)(Game.GameTime - LastSeen)).ToString() : String.Empty;
 
-        public string SSTime => LastSeen > -1 ? Math.Ceiling((Environment.TickCount - LastSeen) / 1000 + 0.5).ToString() : "";
+        public int SSTimeInt => (int)(Game.GameTime - LastSeen);
 
-        public Vector3 LastPosition { get; set; } = Vector3.Zero;
+        public Vector3 LastPosition { get; set; }
+
+        public TrackStatus Status { get; set; }
+
+        public Color GetColor()
+        {
+            switch (Status)
+            {
+                case TrackStatus.Visible:
+                    return Color.Green;
+                case TrackStatus.InFog:
+                    return Color.YellowGreen;
+                case TrackStatus.Invalid:
+                    return Color.Gray;
+                case TrackStatus.Invisible:
+                    return Color.LightYellow;
+                default:
+                    return Color.Gray;
+            }
+        }
+
+        public TrackStatus GetStatus()
+        {
+            return !Hero.IsValid ? TrackStatus.Invalid : 
+                    Hero.IsInvisible() ? TrackStatus.Invisible : 
+                    Hero.IsVisible ? TrackStatus.Visible : 
+                    TrackStatus.InFog;
+        }
+    }
+
+    public enum TrackStatus
+    {
+        Invalid,
+        Invisible,
+        Visible,
+        InFog
     }
 }

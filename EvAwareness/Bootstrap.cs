@@ -25,6 +25,8 @@ namespace EvAwareness
     using Ensage;
     using Ensage.Common.Menu;
 
+    using UI;
+
     using Utility;
     using Utility.Console;
 
@@ -37,6 +39,10 @@ namespace EvAwareness
         public static void OnLoad()
         {
             Variables.Menu = new Menu("EvAwareness#", "evervolv.aware", true);
+            HudVariables.HudMenu = new Menu("Drawings", "evervolv.aware.hud");
+            HudVariables.HudMenu.AddBool("evervolv.aware.hud.show", "Enable all drawings", true);
+
+            Variables.Menu.AddSubMenu(HudVariables.HudMenu);
 
             ConsoleHelper.OnLoad();
 
@@ -57,6 +63,23 @@ namespace EvAwareness
                     " loaded."));
             }
 
+            foreach (var element in HudVariables.ElementsList)
+            {
+                try
+                {
+                    element.OnLoad();
+                }
+                catch (Exception e)
+                {
+                    ConsoleHelper.Print(new ConsoleItem("Bootstrap::OnUIElementLoad", e, MessageClass.Error));
+                }
+
+                ConsoleHelper.Print(
+                    new ConsoleItem("Bootstrap::OnUIElementLoad", "UIElement "
+                    + element.ToString().Replace("EvAwareness.UI.Elements.", String.Empty).Split(".".ToCharArray())[0] +
+                    " loaded."));
+            }
+
             if (Variables.IsDevelopment)
                 Variables.Menu.AddItem(
                     new MenuItem("evervolv.aware.devalert", Variables.Version + " dev").SetFontColor(new Color(153, 153, 255)));
@@ -66,6 +89,8 @@ namespace EvAwareness
                 Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded <font color='#9999ff'>[dev " + Variables.Version + "]</font>", MessageType.LogMessage);
             else
                 Game.PrintMessage("<font color='#9999ff'>Ev</font>Awareness Loaded", MessageType.LogMessage);
+
+            EvAwareness.OnLoad();
 
             ConsoleHelper.Print(new ConsoleItem("Bootstrap", "Completed!"));
         }

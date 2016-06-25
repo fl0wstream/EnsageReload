@@ -21,6 +21,10 @@ namespace EvAwareness
 
     using Ensage;
 
+    using global::EvAwareness.Utility.Console;
+
+    using UI;
+
     using Utility;
 
     internal class EvAwareness
@@ -28,11 +32,24 @@ namespace EvAwareness
         public static void OnLoad()
         {
             Game.OnUpdate += OnUpdate;
+            Drawing.OnDraw += OnDraw;
+        }
+
+        private static void OnDraw(EventArgs args)
+        {
+            if (Drawing.Direct3DDevice9 == null || Drawing.Direct3DDevice9.IsDisposed || !Game.IsInGame || ObjectManager.LocalHero == null)
+                return;
+
+            foreach (var element in HudVariables.ElementsList.Where(elementHandler => elementHandler.ShouldDraw()))
+            {
+                element.OnDraw();
+            }
         }
 
         private static void OnUpdate(EventArgs args)
         {
-            foreach (var module in Variables.ModulesList.Where(moduleHandler => moduleHandler.ShouldRun() && moduleHandler.GetModuleType() == ModuleType.OnUpdate))
+            foreach (var module in Variables.ModulesList.Where(moduleHandler => moduleHandler.ShouldRun() && 
+            moduleHandler.GetModuleType() == ModuleType.OnUpdate))
             {
                 module.OnTick();
             }

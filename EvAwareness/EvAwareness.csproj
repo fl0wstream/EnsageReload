@@ -82,6 +82,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -97,6 +98,11 @@
     <Compile Include="Modules\ModuleHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\ElementHandler.cs" />
+    <Compile Include="UI\HudHelper.cs" />
+    <Compile Include="UI\HudVariables.cs" />
+    <Compile Include="UI\Elements\StatusPanel.cs" />
+    <Compile Include="Utility\CommonHelper.cs" />
     <Compile Include="Utility\Console\ConsoleEnum.cs" />
     <Compile Include="Utility\Console\ConsoleHelper.cs" />
     <Compile Include="Utility\Console\ConsoleItem.cs" />
@@ -124,6 +130,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
