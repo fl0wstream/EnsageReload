@@ -20,23 +20,29 @@
 
 namespace EvAwareness.Utility
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 
     using Ensage;
+    using Ensage.Common.Extensions;
     using Ensage.Common.Menu;
 
     using Modules;
     using Modules.MissTracker;
     using Modules.GankAlert;
+    using Modules.Ranges;
+    using Modules.TFHelper;
 
     class Variables
     {
         public static List<ModuleHandler> ModulesList = new List<ModuleHandler>()
                                                             {
                                                                 new MissTrackerHandler(),
-                                                                new GankAlertHandler()
+                                                                new GankAlertHandler(),
+                                                                new RangesHandler(),
+                                                                new TFHelperHandler()
                                                             };
 
         public static Menu Menu { get; set; }
@@ -55,6 +61,16 @@ namespace EvAwareness.Utility
 
             public static List<Hero> Allies
                 => ObjectManager.GetEntities<Hero>().Where(x => x.Team == Player.Team).ToList();
+
+            public static List<Hero> AlliesClose
+                => Allies.Where(
+                        m => m.Index != Player.Index &&
+                            m.Distance2D(Player) <= Math.Pow(1000, 2) && m.IsValidTarget(1000, false)).ToList();
+
+            public static List<Hero> EnemiesClose
+                => Enemies.Where(
+                        m => m.Distance2D(Player) <= Math.Pow(1000, 2) && m.IsValidTarget(1500, false) &&
+                            m.CountEnemiesInRange(m.IsMelee ? m.AttackRange * 1.5f : m.AttackRange + 20 * 1.5f) > 0).ToList();
         }
     }
 }

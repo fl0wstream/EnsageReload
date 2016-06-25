@@ -1,12 +1,15 @@
 ﻿namespace EvAwareness.Utility
 {
     using System;
+    using System.Linq;
 
     using Ensage;
+    using Ensage.Common;
+    using Ensage.Common.Extensions;
 
     using SharpDX;
 
-    class CommonHelper
+    static class CommonHelper
     {
         /* 
          * Regards to JumpAttacker
@@ -86,6 +89,32 @@
                 else s1[i] = s1[i].ToUpper();
             }
             return string.Join("_", s1);
+        }
+
+        public static int CountEnemiesInRange(this Hero hero, float range)
+        {
+            return
+                ObjectManager.GetEntities<Hero>()
+                    .Count(x => x.Team != Variables.Player.Team && x.IsValid && x.IsAlive && x.Distance2D(hero) <= range);
+        }
+
+        public static int CountAlliesInRange(this Hero hero, float range)
+        {
+            return
+                ObjectManager.GetEntities<Hero>()
+                    .Count(x => x.Team == Variables.Player.Team && x.IsValid && x.IsAlive && x.Distance2D(hero) <= range);
+        }
+
+        public static Vector2 To2D(this Vector3 vector)
+        { 
+            //return Drawing.WorldToScreen(vector);
+            return new Vector2(vector.X, vector.Y);
+        }
+
+        public static Vector3 To3D(this Vector2 vector)
+        {
+            //return Drawing.ScreenToWorld(vector);
+            return new Vector3(vector.X, vector.Y, 256f);
         }
     }
 }

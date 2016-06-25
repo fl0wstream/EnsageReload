@@ -68,6 +68,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clipper_library">
+      <HintPath>C:\PlaySharp\System\clipper_library.dll</HintPath>
+    </Reference>
     <Reference Include="Ensage">
       <HintPath>C:\PlaySharp\System\Ensage.dll</HintPath>
     </Reference>
@@ -99,6 +102,11 @@
     <Compile Include="Modules\MissTracker\MissTrackerModule.cs" />
     <Compile Include="Modules\MissTracker\MissTrackerHandler.cs" />
     <Compile Include="Modules\ModuleHandler.cs" />
+    <Compile Include="Modules\Ranges\RangesHandler.cs" />
+    <Compile Include="Modules\TFHelper\TFHelperCalculator.cs" />
+    <Compile Include="Modules\TFHelper\TFHelperDrawings.cs" />
+    <Compile Include="Modules\TFHelper\TFHelperHandler.cs" />
+    <Compile Include="Modules\TFHelper\TFHelperVariables.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\ElementHandler.cs" />
@@ -111,6 +119,7 @@
     <Compile Include="Utility\Console\ConsoleEnum.cs" />
     <Compile Include="Utility\Console\ConsoleHelper.cs" />
     <Compile Include="Utility\Console\ConsoleItem.cs" />
+    <Compile Include="Utility\Geometry.cs" />
     <Compile Include="Utility\MenuExtensions.cs" />
     <Compile Include="Utility\ModuleType.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
