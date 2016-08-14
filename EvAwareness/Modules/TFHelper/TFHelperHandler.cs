@@ -22,6 +22,10 @@ namespace EvAwareness.Modules.TFHelper
                 {
                     moduleMenu.AddBool("evervolv.aware.tf.enabled", "TF Helper");
                     moduleMenu.AddSlider("evervolv.aware.tf.range", "TF Range", 1200, 500, 1800);
+                    moduleMenu.AddBool("evervolv.aware.tf.draw.mouse", "Draw on mouse");
+                    moduleMenu.AddSlider("evervolv.aware.tf.mousetextsize", "Mouse text size", 14, 10, 30);
+                    moduleMenu.AddBool("evervolv.aware.tf.draw.hero", "Draw on hero");
+                    moduleMenu.AddSlider("evervolv.aware.tf.herotextsize", "Hero text size", 14, 10, 30);
                     RootMenu.AddSubMenu(moduleMenu);
                 }
 

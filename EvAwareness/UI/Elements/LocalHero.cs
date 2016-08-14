@@ -8,7 +8,8 @@ namespace EvAwareness.UI.Elements
     using Ensage.Common;
     using Ensage.Common.Menu;
 
-    using global::EvAwareness.Modules.GankAlert;
+    using Modules.GankAlert;
+    using Modules.TFHelper;
 
     using SharpDX;
 
@@ -34,7 +35,7 @@ namespace EvAwareness.UI.Elements
             }
             catch (Exception e)
             {
-                ConsoleHelper.Print(new ConsoleItem("StatusPanel", e, MessageClass.Warning));
+                ConsoleHelper.Print(new ConsoleItem("LocalHero", e, MessageClass.Warning));
             }
         }
 
@@ -78,6 +79,9 @@ namespace EvAwareness.UI.Elements
                         new Vector2(HeroScreenSize.Y * 2, HeroScreenSize.X) + new Vector2(userSize * 2, userSize), Color.White, flags);
                 }
             }
+
+            if (TFHelperVariables.DrawOnHero && TFHelperVariables.Enabled)
+                TFHelperDrawings.DrawOnHero();
         }
     }
 }

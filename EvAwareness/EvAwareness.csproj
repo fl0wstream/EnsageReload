@@ -69,19 +69,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="clipper_library">
-      <HintPath>C:\PlaySharp\System\clipper_library.dll</HintPath>
+      <HintPath>C:\b507VyWLu2\References\clipper_library.dll</HintPath>
     </Reference>
     <Reference Include="Ensage">
-      <HintPath>C:\PlaySharp\System\Ensage.dll</HintPath>
+      <HintPath>C:\b507VyWLu2\References\Ensage.dll</HintPath>
     </Reference>
     <Reference Include="Ensage.Common">
-      <HintPath>C:\PlaySharp\System\Ensage.Common.dll</HintPath>
+      <HintPath>C:\b507VyWLu2\References\Ensage.Common.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX">
-      <HintPath>C:\PlaySharp\System\SharpDX.dll</HintPath>
+      <HintPath>C:\b507VyWLu2\References\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>C:\PlaySharp\System\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>C:\b507VyWLu2\References\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -112,6 +112,7 @@
     <Compile Include="UI\ElementHandler.cs" />
     <Compile Include="UI\Elements\LocalHero.cs" />
     <Compile Include="UI\Elements\Minimap.cs" />
+    <Compile Include="UI\Elements\Mouse.cs" />
     <Compile Include="UI\HudHelper.cs" />
     <Compile Include="UI\HudVariables.cs" />
     <Compile Include="UI\Elements\StatusPanel.cs" />

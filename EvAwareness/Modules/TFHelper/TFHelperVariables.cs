@@ -36,6 +36,16 @@
             }
         }
 
+        public static int MouseTextSize => MenuExtensions.GetItemValue<Slider>("evervolv.aware.tf.mousetextsize").Value;
+
+        public static int HeroTextSize => MenuExtensions.GetItemValue<Slider>("evervolv.aware.tf.herotextsize").Value;
+
+        public static bool DrawOnMouse => MenuExtensions.GetItemValue<bool>("evervolv.aware.tf.draw.mouse");
+
+        public static bool DrawOnHero => MenuExtensions.GetItemValue<bool>("evervolv.aware.tf.draw.hero");
+
+        public static bool Enabled => MenuExtensions.GetItemValue<bool>("evervolv.aware.tf.enabled");
+
         public static string AllyStrengthText { get; set; }
 
         public static string EnemyStrengthText { get; set; }

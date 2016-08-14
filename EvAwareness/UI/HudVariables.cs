@@ -17,7 +17,8 @@
                                                               {
                                                                   new StatusPanel(),
                                                                   new Minimap(),
-                                                                  new LocalHero()
+                                                                  new LocalHero(),
+                                                                  new Mouse()
                                                               }; 
 
         public static Font HudFont => new Font(Drawing.Direct3DDevice9, new FontDescription {
