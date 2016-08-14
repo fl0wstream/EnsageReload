@@ -61,11 +61,11 @@
             var flags = FontFlags.DropShadow | FontFlags.Outline | FontFlags.AntiAlias;
             var text = _allyStrength + " % / " + _enemyStrength + " %";
             var color = _allyStrength > _enemyStrength ? Color.LightSkyBlue : Color.Red;
-            var textPosition = HudHelper.GetTextPosition(heroPosition, text, heroSize + new Vector2(userSize * 2), flags);
+            var textPosition = HudHelper.GetTextPosition(heroPosition, text, heroSize + new Vector2(userSize), flags);
 
             Drawing.DrawText(_fightResult, textPosition, new Vector2(heroSize.Y * 2, heroSize.X) + new Vector2(userSize), Color.White, flags);
             Drawing.DrawText(text, new Vector2(textPosition.X, textPosition.Y + defaultUserSize * 1.1f),
-                                new Vector2(heroSize.Y * 2, heroSize.X) + new Vector2(userSize), color, flags);
+                                new Vector2(heroSize.Y * 2, heroSize.X) + new Vector2(userSize * 2), color, flags);
         }
 
         private static bool Uncached => _allyStrength == -1 || _enemyStrength == -1 || _fightResult == "uncached";
